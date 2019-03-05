@@ -1,0 +1,9 @@
+{
+  "express": {
+    "host": "localhost",
+    "port": 3000
+  },
+  "public": "client/public",
+    "data": "api/data"
+}
+  

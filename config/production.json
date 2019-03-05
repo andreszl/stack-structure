@@ -1,0 +1,7 @@
+{
+  "express": {
+    "port": 3210
+  },
+  "public": "build/client/public",
+  "data": "build/api/data"
+}
