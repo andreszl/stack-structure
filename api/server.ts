@@ -1,12 +1,22 @@
 import express, { Application } from 'express';
+import graphqlHTTP  from 'express-graphql';
+import { buildSchema } from 'graphql';
 import http  from 'http';
 import config from 'config'
 import  morgan  from "morgan";
 import cors from "cors";
 
 import usersRoutes from './routes/usersRoutes';
-import Socket from './socket'
-import * as uni from './app'
+import Socket from './socket';
+import * as uni from './app';
+
+var schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+
+var root = { hello: () => 'Hello world!' };
 
 
 class Server{
@@ -38,6 +48,11 @@ class Server{
     
 
     routes(): void {
+        this.app.use('/graphql', graphqlHTTP({
+            schema: schema,
+            rootValue: root,
+            graphiql: true,
+        }));
         this.app.use('/api/users', usersRoutes); 
         this.app.get('*', (uni.handleRender));
     }
