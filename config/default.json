@@ -3,6 +3,9 @@
     "host": "localhost",
     "port": 3000
   },
+  "graphql": {
+    "path": "/graphql"
+  },
   "public": "client/public",
     "data": "api/data"
 }

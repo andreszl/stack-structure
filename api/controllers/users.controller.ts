@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Users from '../observers/Users'
+// import Users from '../observers/Users'
 import UserModel from '../models/user.model'
 
 class UsersController {
@@ -41,8 +41,8 @@ class UsersController {
                     res.json('error')         
                 }else{                  
                     UserModel.save(user, (userSuccess) => {
-                        let newUser = new Users(userSuccess._id, userSuccess.name, userSuccess.role, userSuccess.status)
-                        newUser.notify();
+                        // let newUser = new Users(userSuccess._id, userSuccess.name, userSuccess.role, userSuccess.status)
+                        // newUser.notify();
                         res.status(200)
                         res.json(userSuccess)
                     })
