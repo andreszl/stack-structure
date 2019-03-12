@@ -54,14 +54,14 @@ class UsersController {
     }  
 
     public async findById(req: Request, res: Response): Promise<void> {
-        try{     
-            let id = req.params.id
-            UserModel.findById(id, function(user){
-                res.json(user)
-            });    
-        }catch(err){
-            console.log(err)
-        }
+        // try{     
+        //     let id = req.params.id
+        //     UserModel.findById(id, function(user){
+        //         res.json(user)
+        //     });    
+        // }catch(err){
+        //     console.log(err)
+        // }
     } 
 }
 

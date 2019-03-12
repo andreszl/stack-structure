@@ -19,6 +19,7 @@
     "npm": ">=3.8.6"
   },
   "devDependencies": {
+    "@graphql-modules/core": "^0.4.2",
     "@trongnd/ts-nodemon": "^1.0.3",
     "@types/config": "0.0.34",
     "@types/cors": "^2.8.4",
@@ -26,6 +27,7 @@
     "@types/graphql": "^14.0.7",
     "@types/jest": "^24.0.9",
     "@types/morgan": "^1.7.35",
+    "@types/node": "^11.11.0",
     "@types/react": "^16.8.2",
     "@types/react-dom": "^16.8.0",
     "@types/react-router-dom": "^4.3.1",

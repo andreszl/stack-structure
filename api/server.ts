@@ -8,17 +8,10 @@ import * as uni from './app'
 
 import { ApolloServer, gql } from 'apollo-server-express';
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+import { modules } from './graphql';
 
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  },
-};
+
+const { schema, context } =  modules;
 
 class Server{
     public app: Application;
@@ -32,7 +25,7 @@ class Server{
         this.path = config.get('graphql.path'); 
         this.port = config.get('express.port')
         this.app = express();
-        this.server = new ApolloServer({ typeDefs, resolvers });
+        this.server = new ApolloServer({ schema, context, introspection: true});
         this.config();
         this.routes();   
     }
