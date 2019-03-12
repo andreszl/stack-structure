@@ -40,29 +40,18 @@ class UserModel {
 
     public static find(){
         return new Promise(resolve => {
-            db.users.find({}, (err, user) =>{
-                resolve(user)
+            db.users.find({}, (err, users) =>{
+                resolve(users)
             })
         })
     }
 
-    public static findById(){
+    public static findById(id){
         return new Promise(resolve => {
-            setTimeout(() => {
-              resolve('resolved');
-            }, 2000);
-          });
-
-        // function(resolve, reject){
-        //     db.users.find({_id: id}, (err, user) => {
-        //         if (err) {
-        //             reject(err);
-        //         } else {
-        //             resolve(user);
-        //         }
-        //     })
-        //  }
-        
+            db.users.find({_id: id}, (err, user) => {
+                resolve(user)
+            })
+        })
     }
 }
 
