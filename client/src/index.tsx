@@ -6,6 +6,8 @@ declare global {
     interface Window { __INITIAL_STATE__: any; }
 }
 
-ReactDOM.hydrate(<App initialState={window.__INITIAL_STATE__} />,
+
+ReactDOM.hydrate(    
+    <App initialState={window.__INITIAL_STATE__} />,
     document.getElementById('app')
 );

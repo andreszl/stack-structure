@@ -21,7 +21,7 @@ class Server{
     public  path: String
 
 
-    constructor(){
+    constructor(){      
         this.path = config.get('graphql.path'); 
         this.port = config.get('express.port')
         this.app = express();
