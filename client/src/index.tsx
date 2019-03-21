@@ -11,3 +11,4 @@ ReactDOM.hydrate(
     <App initialState={window.__INITIAL_STATE__} />,
     document.getElementById('app')
 );
+

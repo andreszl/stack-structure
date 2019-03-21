@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import {gql, Query} from 'react-apollo';
+import { Query} from 'react-apollo';
+import gql from 'graphql-tag';
 
 const USERS_QUERY = gql`
     {
         users {
-            name
+            name,
+            role
+
         }
     }
 `;
@@ -18,7 +21,17 @@ class Users extends Component {
                         ({loading, error, data}) => {
                             if(loading) return <h4>loading...</h4>
                             if(error) console.log(error)
-                            return <h1>test</h1>
+                            return (
+                                <div>
+                                    {
+                                        data.users.map( (user, key) => {
+                                            return <div key={key}>
+                                                <p>{user.name} - {user.role}</p>                                                
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            )                        
                         }
                     }
                 </Query>

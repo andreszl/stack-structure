@@ -3,7 +3,7 @@ import config from 'config'
 import  morgan  from "morgan";
 import cors from "cors";
 
-import usersRoutes from './routes/usersRoutes';
+import usersRoutes from './routes/users.route';
 import * as uni from './app'
 
 import { ApolloServer, gql } from 'apollo-server-express';

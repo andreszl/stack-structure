@@ -1,7 +1,6 @@
 {
   "watch": [
-    "api",
-    "client/src/**/*.{ts,tsx}"
+    "api"
   ],
   "ext": "js json ts tsx",
   "ignore": ["client/src/**/*.spec.ts"],
