@@ -15,7 +15,6 @@ class UserModel {
 
 
     public static index(callback){
-        console.log('here')
         db.users.find({}, (err, data) => {
             if(err){
                 console.log(err)
@@ -24,11 +23,26 @@ class UserModel {
         })
     }
 
-    public static findByName(name, callback){
-        db.users.find({name: name}, (err, user) => {
-            callback(user)
+    public static findUserByName(name){
+        return new Promise(resolve => {
+            db.users.find({name: name}, (err, user) => {
+                resolve(user)
+            })
         })
     }
+
+    public static findUsersByName(name){
+        let regex : any = `${name}`;
+        regex = new RegExp(regex);
+        return new Promise(resolve => {
+            db.users.find({name: {$regex : regex}}, (err, user) => {
+                console.log(user)
+                resolve(user)
+            })
+        })
+    }
+
+
     public static save(user: Object, callback: Function){
         db.users.insert(user, (err, user) => {
             if(err){
@@ -56,3 +70,5 @@ class UserModel {
 }
 
 export default UserModel
+
+// db.find({ name: {$in :'andreszl'}})

@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// import Users from '../observers/Users'
 import UserModel from '../models/user.model'
 
 class UsersController {
@@ -17,9 +16,8 @@ class UsersController {
     public async login(req: Request, res: Response): Promise<void> {
         try{     
             let name = req.params.name
-            UserModel.findByName(name, function(user){
-                res.json(user)
-            });    
+            let user = await UserModel.findUserByName(name);    
+            res.json(user)
         }catch(err){
             console.log(err)
         }
@@ -34,35 +32,35 @@ class UsersController {
                 status: false
             }
 
+            
+            
             let name = user.name;
-            UserModel.findByName(name, (user) => {
-                if(user.length >= 1){
-                    res.status(400)     
-                    res.json('error')         
-                }else{                  
-                    UserModel.save(user, (userSuccess) => {
-                        // let newUser = new Users(userSuccess._id, userSuccess.name, userSuccess.role, userSuccess.status)
-                        // newUser.notify();
-                        res.status(200)
-                        res.json(userSuccess)
-                    })
-                }
-            });              
+            let result : any = await UserModel.findUserByName(name)
+
+            if(result.length >= 1){
+                res.json(result)       
+            }else{                  
+                UserModel.save(user, (userSuccess) => {
+                    res.status(200)
+                    res.json(userSuccess)
+                })
+            }           
         }catch(err){
             console.log(err)
         }
     }  
 
     public async findById(req: Request, res: Response): Promise<void> {
-        // try{     
-        //     let id = req.params.id
-        //     UserModel.findById(id, function(user){
-        //         res.json(user)
-        //     });    
-        // }catch(err){
-        //     console.log(err)
-        // }
+        try{     
+            let id = req.params.id
+            let user = await UserModel.findById(id);
+            res.json(user)    
+        }catch(err){
+            console.log(err)
+        }
     } 
+
+
 }
 
 export const usersController = new UsersController();

@@ -7,7 +7,8 @@ export const UserModule = new GraphQLModule({
     type Query {
       hello(name: String): String!,
       users: [User],
-      user(id: String!): [User]!
+      findUserById(id: String!): [User]!,
+      findUsersByName(name: String!): [User]!
     }
 
     type User {
@@ -27,8 +28,12 @@ export const UserModule = new GraphQLModule({
         const users = await UserModel.find()
         return users
       },
-      user: async (_, {id}) => {
+      findUserById: async (_, {id}) => {
         const user = await UserModel.findById(id)
+        return user
+      },
+      findUsersByName: async (_, {name}) => {
+        const user = await UserModel.findUsersByName(name)
         return user
       }
     },

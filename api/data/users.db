@@ -1,5 +1,2 @@
-{"name":"felipezl","role":"director","status":false,"_id":"BGSkZcXniQfDoRHb","createdAt":{"$$date":1551444964152},"updatedAt":{"$$date":1551479606821}}
-{"name":"dubanzl","role":"technical","status":false,"_id":"KZxXfN3pILEFmLjS","createdAt":{"$$date":1551479320509},"updatedAt":{"$$date":1551479606822}}
-{"name":"dubancode","role":"technical","status":false,"_id":"PpSl5spY4qg7khlQ","createdAt":{"$$date":1551479381436},"updatedAt":{"$$date":1551479606819}}
-{"name":"peresa","role":"technical","status":false,"_id":"rpntF2csBaZICwTu","createdAt":{"$$date":1551479489938},"updatedAt":{"$$date":1551479606707}}
-{"name":"andreszl","role":"technical","status":false,"_id":"vKeiDxZYdG7lr8DT","createdAt":{"$$date":1551444009912},"updatedAt":{"$$date":1551479606824}}
+{"name":"andreszl","role":"administrador","status":false,"_id":"RMJlzAFoFv0lYOAP","createdAt":{"$$date":1553274540076},"updatedAt":{"$$date":1553274540076}}
+{"name":"dubanzl","role":"desarrollador","status":false,"_id":"lXrzIR9FyYFEClur","createdAt":{"$$date":1553277627592},"updatedAt":{"$$date":1553277627592}}
