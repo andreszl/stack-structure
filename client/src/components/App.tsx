@@ -6,9 +6,9 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'node-fetch'
-
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import Users from "./Users";
-
+import routes from '../routes'
 
 const httpLink = new HttpLink({
     uri: 'http://localhost:3001/graphql',
@@ -59,11 +59,28 @@ class App extends Component<Props, State> {
 
     render() {
         return (   
-            <ApolloProvider client={client}>              
-              <h2 className='text-center'>{this.state.title}</h2>
-              <p className='text-center'>{this.state.content}</p>
-              <Users />                
+          <Router>
+            <ApolloProvider client={client}>    
+              <div>
+                <ul>
+                  <li><Link to="/">home</Link></li>
+                  <li><Link to="/users">users</Link></li>
+                </ul>          
+                <h2 className='text-center'>{this.state.title}</h2>
+                <p className='text-center'>{this.state.content}</p>                   
+                <Switch>
+                  {routes.map((route) => (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      exact={route.exact}
+                      component={route.component}
+                    />
+                  ))} 
+                </Switch> 
+              </div>        
             </ApolloProvider>         
+          </Router>
         )
     }
 }
