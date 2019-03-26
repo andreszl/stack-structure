@@ -17,8 +17,8 @@ class Server{
     public app: Application;
     public server: any;
     public port: any;
-    public socket: any
-    public  path: String
+    public socket: any;
+    public path: String;
 
 
     constructor(){      
