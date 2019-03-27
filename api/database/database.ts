@@ -28,7 +28,8 @@ class Database {
     public async conect(){
         try{  
             this.connection = await MongoClient.connect(`mongodb://${this.host}:${this.port}`,{useNewUrlParser:true});
-            return  this.db = this.connection.db(this.dbname); 
+            
+              this.db = this.connection.db(this.dbname); 
         }catch(error){
             console.log(`Error in connect database ${error}`);
         }
