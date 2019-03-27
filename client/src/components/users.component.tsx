@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import User from './SearchUsers'
+import User from './searchUsers.component'
 const USERS_QUERY = gql`
     {
         users {

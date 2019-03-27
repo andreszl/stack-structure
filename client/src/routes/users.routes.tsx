@@ -1,6 +1,6 @@
-import Users from '../components/Users'
+import Users from '../components/users.component'
 
-export const userRoutes = {
+export const userRoutes : any = {
     path: '/users',
     exact: true,
     component: Users

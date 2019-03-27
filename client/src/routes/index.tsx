@@ -1,8 +1,8 @@
 import { userRoutes } from './users.routes'
-import App from '../components/App'
-import NotFound from '../components/NotFound'
+import App from '../components/app.component'
+import NotFound from '../components/notFound.component'
 
-const routes = [
+const routes : any = [
     {
       path: '/',
       exact: true,

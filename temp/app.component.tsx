@@ -6,8 +6,7 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'node-fetch'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import Users from "./Users";
+import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import routes from '../routes'
 
 const httpLink = new HttpLink({
@@ -59,7 +58,7 @@ class App extends Component<Props, State> {
 
     render() {
         return (   
-          <Router>
+         <Router>
             <ApolloProvider client={client}>    
               <div>
                 <ul>
@@ -68,16 +67,16 @@ class App extends Component<Props, State> {
                 </ul>          
                 <h2 className='text-center'>{this.state.title}</h2>
                 <p className='text-center'>{this.state.content}</p>                   
-                <Switch>
-                  {routes.map((route) => (
-                    <Route
-                      key={route.path}
-                      path={route.path}
-                      exact={route.exact}
-                      component={route.component}
-                    />
-                  ))} 
-                </Switch> 
+                {routes.map(({ path, exact, component: C, ...rest }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    exact={exact}
+                    render={(props) => (
+                      <C {...props} {...rest} />
+                    )}
+                  />
+                ))}
               </div>        
             </ApolloProvider>         
           </Router>

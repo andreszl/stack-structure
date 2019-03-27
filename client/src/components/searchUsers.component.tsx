@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import UserItem from './UserItem'
+import UserItem from './userItem.component'
 
 
 interface Props {
