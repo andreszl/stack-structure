@@ -21,6 +21,8 @@ class App extends Component<Props, State> {
             title: 'Server Side Rendering React',
             content: 'implementation of server-side-rendering',           
         }
+
+        console.log(this.props)
     }
 
     render() {
@@ -33,8 +35,7 @@ class App extends Component<Props, State> {
               </ul>          
               <h2 className='text-center'>{this.state.title}</h2>
               <p className='text-center'>{this.state.content}</p>                   
-              <Switch>             
-                {routes.map((route) => (console.log(route)))}
+              <Switch>                            
                   {routes.map((route) => (
                     <Route
                     key={route.path}

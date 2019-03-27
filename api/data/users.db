@@ -1,2 +1,3 @@
 {"name":"andreszl","role":"administrador","status":false,"_id":"RMJlzAFoFv0lYOAP","createdAt":{"$$date":1553274540076},"updatedAt":{"$$date":1553274540076}}
 {"name":"dubanzl","role":"desarrollador","status":false,"_id":"lXrzIR9FyYFEClur","createdAt":{"$$date":1553277627592},"updatedAt":{"$$date":1553277627592}}
+{"name":"felipezl","role":"redux","status":false,"_id":"ylZcE6lhS1q2KZQh","createdAt":{"$$date":1553726462571},"updatedAt":{"$$date":1553726462571}}
