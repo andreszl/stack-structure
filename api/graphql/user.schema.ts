@@ -11,7 +11,7 @@ export const UserModule = new GraphQLModule({
       findUsersByName(name: String!): [User]!
     }
 
-    type User {
+   type User {
       id: String!
       name: String!
       role: String!
@@ -19,14 +19,17 @@ export const UserModule = new GraphQLModule({
       createdAt: String!
       updatedAt: String
     }
-  `,
+
+    type Mutation {
+      addUser(name: String!, role: String!): User
+    }
+  `, 
   
   resolvers: {
     Query: {
       hello: (_, {name}) => `hello ${name || "world"}`,
-      users : async () => {
-        const users = await UserModel.find()
-        return users
+      users : async () => {        
+        return await UserModel.find()
       },
       findUserById: async (_, {id}) => {
         const user = await UserModel.findById(id)
@@ -35,6 +38,17 @@ export const UserModule = new GraphQLModule({
       findUsersByName: async (_, {name}) => {
         const user = await UserModel.findUsersByName(name)
         return user
+      },     
+    },
+    Mutation: {
+      addUser: async (_, {name, role}) => {
+        let user = {
+          name,
+          role,
+          status: false
+        }
+        let data = await UserModel.save(user)   
+        return data     
       }
     },
     User: {
@@ -44,6 +58,6 @@ export const UserModule = new GraphQLModule({
       status: user => user.status,
       createdAt: user => user.createdAt,
       updatedAt: user => user.updatedAt,
-    }, 
+    }
   },
 });

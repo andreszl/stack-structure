@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { ApolloProvider } from 'react-apollo';
 import { Route, Link, Switch } from 'react-router-dom'
 import routes from '../routes'
-import { client } from '../lib/apolloClient.lib'
-
 
 interface Props {
-    initialState: object
 }
 
 interface State {
@@ -21,13 +17,10 @@ class App extends Component<Props, State> {
             title: 'Server Side Rendering React',
             content: 'implementation of server-side-rendering',           
         }
-
-        console.log(this.props)
     }
 
     render() {
-        return (             
-          <ApolloProvider client={client}>    
+        return (                    
             <div>
               <ul>
                 <li><Link to="/">home</Link></li>
@@ -38,15 +31,14 @@ class App extends Component<Props, State> {
               <Switch>                            
                   {routes.map((route) => (
                     <Route
-                    key={route.path}
-                    path={route.path}
-                    exact={route.exact}
-                    component={route.component}
+                      key={route.path}
+                      path={route.path}
+                      exact={route.exact}
+                      component={route.component}
                     />                    
                     ))}
               </Switch>       
-            </div>          
-          </ApolloProvider>             
+            </div>                    
         )
     }
 }

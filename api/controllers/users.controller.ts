@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import UserModel from '../models/user.model'
+import { graphql } from 'graphql'
+import { modules } from '../graphql'
 
 class UsersController {
     
     public async index(req: Request, res: Response): Promise<void> {
         try{     
-            UserModel.index(function(users){
-                res.json(users)
-            });    
+            let { schema, context } =  modules;
+            let { data } = await graphql(schema,`{users{id, name, role, status, createdAt, updatedAt}}`,context)
+            res.json(data.users)
         }catch(err){
             console.log(err)
         }
@@ -40,10 +42,10 @@ class UsersController {
             if(result.length >= 1){
                 res.json(result)       
             }else{                  
-                UserModel.save(user, (userSuccess) => {
-                    res.status(200)
-                    res.json(userSuccess)
-                })
+                // UserModel.save(user, (userSuccess) => {
+                //     res.status(200)
+                //     res.json(userSuccess)
+                // })
             }           
         }catch(err){
             console.log(err)

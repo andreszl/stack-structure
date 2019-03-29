@@ -7,13 +7,15 @@ import { createStore } from 'redux'
 import reducers from '../client/src/reducers'
 
 export function handleRender(req, res) {
-
-        let initialState = {"data": "data"}
-        let props = { location: req.url, context:{} }
+            
         const  store : any = createStore(reducers)
-        console.log(store, store.getState())
+
         const html  = renderToString(
-               React.createElement(StaticRouter, props, React.createElement(App, initialState))                     
+        <Provider store={store}>
+                <StaticRouter location={req.url} context={{}}>
+                        <App />
+                </StaticRouter>
+        </Provider>              
         );
         
         res.render('index', { html: html, initialState: JSON.stringify(store.getState())})

@@ -43,13 +43,15 @@ class UserModel {
     }
 
 
-    public static save(user: Object, callback: Function){
-        db.users.insert(user, (err, user) => {
-            if(err){
-                throw err
-            }
-           callback(user)
-        })
+    public static save(user: Object){
+        return new Promise(resolve => {
+            db.users.insert(user, (err, user) => {
+                if(err){
+                    throw err
+                }
+                resolve(user)
+            })
+        })       
     }
 
     public static find(){

@@ -10,7 +10,7 @@
     <body>
         <div id="app"><%- html %></div>
         <script>
-            window.__INITIAL_STATE__ = <%- initialState %>;
+            window.__INITIAL_STATE__ = <%- initialState.replace(/</g,'\\u003c') %>;
         </script>
         <script src="./app.js" defer></script>
     </body>

@@ -1,34 +1,29 @@
 import React, { Component } from 'react'
-import UserItem from './userItem.component'
-
+import UsersFiltered from './usersFiltered.component'
+import { connect } from 'react-redux'
+import actions from '../actions'
 
 interface Props {
+    findUsersByName: Function
 }
 
 interface State {
-  user: String
 }
 
-class User extends Component<Props, State>  {
+class SearchUsers extends Component<Props, State>  {
     constructor(props){
         super(props)
-        this.state = {
-            user: ''
-        }
-        this.onChange = this.onChange.bind(this)
-        this.onKeyPress = this.onKeyPress.bind(this)
+        this.searchUser = this.searchUser.bind(this)
     }
 
-    onKeyPress(event){
-        if (event.key == 'Enter') {
-            this.setState({user: event.target.value})
-            console.log(this.state.user)
+    searchUser(event, type) : any {
+        if(type == 'press'){
+            if (event.key == 'Enter') {
+                this.props.findUsersByName(event.target.value)
+            }
+        }else{
+            this.props.findUsersByName(event.target.value)
         }
-    }
-
-    onChange(event){
-        this.setState({user: event.target.value})
-        console.log(this.state.user)
     }
 
     render(){
@@ -37,16 +32,19 @@ class User extends Component<Props, State>  {
                 <form onSubmit={event => event.preventDefault()}>
                     <div>
                         <input
-                            onChange={this.onChange}
-                            onKeyPress={this.onKeyPress}
+                            onChange={ (event) => this.searchUser(event, 'change')}
+                            onKeyPress={(event) => this.searchUser(event, 'press')}
                             type="text"
                         />
                     </div>
                 </form>   
-                <UserItem name={this.state.user}  />            
+                <UsersFiltered />            
             </div>
         )
     }
 }
 
-export default User
+
+const findUsersByName = actions.usersActions.findUsersByName
+
+export default connect(null, {  findUsersByName } )(SearchUsers)
