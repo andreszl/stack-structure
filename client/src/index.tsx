@@ -1,5 +1,5 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
+import { render } from 'react-dom'
 import App from './components/app.component'
 import { BrowserRouter as Router } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ delete window.__INITIAL_STATE__
 
 const store = createStore(reducers, initialState, applyMiddleware(thunk))
 
-hydrate(  
+render(  
     <Provider store={store}>
         <Router>  
             <App />

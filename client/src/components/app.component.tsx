@@ -1,22 +1,49 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom'
+import { withRouter, Route, Link, Switch } from 'react-router-dom'
 import routes from '../routes'
+import Cookies from 'js-cookie';
 
-interface Props {
-}
-
-interface State {
-  title: string,
-  content: string
-}
-
-class App extends Component<Props, State> {
+class App extends Component<any, any> {
     constructor(props){
         super(props)
         this.state = {
             title: 'Server Side Rendering React',
-            content: 'implementation of server-side-rendering',           
+            content: 'implementation of server-side-rendering',   
+            url: '',
+            verify: false
         }
+        this.auth = this.auth.bind(this)
+    }
+
+    auth(){       
+      this.setState({url: this.props.history.location, verify: true})     
+      if(Cookies.get('user') == null ){
+        console.log('redirecting to login...')
+        this.props.history.push('/login')
+      }  
+    }
+
+    componentDidMount(){
+      console.log('verifying logging in componentDidMount...')
+      console.log(Cookies.get('user'))
+       this.auth()
+    }
+
+    componentWillReceiveProps(){
+      console.log('verifying logging in componentWillReceiveProps...')
+      console.log(this.props.history.location)
+      console.log(Cookies.get('user'))
+      console.log(this.state)
+
+      if(this.props.history.location != this.state.url){
+        console.log('routes', this.props.history.location)
+        console.log('route in state', this.state.url)
+        this.setState({url: this.props.history.location, verify:false})
+      }
+
+      if(this.state.verify == false){        
+        this.auth()
+      }
     }
 
     render() {
@@ -34,7 +61,7 @@ class App extends Component<Props, State> {
                       key={route.path}
                       path={route.path}
                       exact={route.exact}
-                      component={route.component}
+                      component={route.component}                     
                     />                    
                     ))}
               </Switch>       
@@ -43,5 +70,5 @@ class App extends Component<Props, State> {
     }
 }
 
-export default App
+export default withRouter(App)
 
