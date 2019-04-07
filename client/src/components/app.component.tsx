@@ -10,7 +10,8 @@ class App extends Component<any, any> {
             title: 'Server Side Rendering React',
             content: 'implementation of server-side-rendering',   
             url: '',
-            verify: false
+            verify: false,
+            show: false
         }
         this.auth = this.auth.bind(this)
     }
@@ -27,9 +28,11 @@ class App extends Component<any, any> {
       console.log('verifying logging in componentDidMount...')
       console.log(Cookies.get('user'))
        this.auth()
+       this.setState({show: true})
     }
 
     componentWillReceiveProps(){
+      this.setState({show: false})
       console.log('verifying logging in componentWillReceiveProps...')
       console.log(this.props.history.location)
       console.log(Cookies.get('user'))
@@ -44,28 +47,36 @@ class App extends Component<any, any> {
       if(this.state.verify == false){        
         this.auth()
       }
+
+      this.setState({show: true})
     }
 
     render() {
-        return (                    
-            <div>
-              <ul>
-                <li><Link to="/">home</Link></li>
-                <li><Link to="/users">users</Link></li>
-              </ul>          
-              <h2 className='text-center'>{this.state.title}</h2>
-              <p className='text-center'>{this.state.content}</p>                   
-              <Switch>                            
-                  {routes.map((route) => (
-                    <Route
-                      key={route.path}
-                      path={route.path}
-                      exact={route.exact}
-                      component={route.component}                     
-                    />                    
-                    ))}
-              </Switch>       
-            </div>                    
+        return (  
+          <div>
+            {
+              this.state.show ? (
+                <div>            
+                <ul>
+                  <li><Link to="/">home</Link></li>
+                  <li><Link to="/users">users</Link></li>
+                </ul>          
+                <h2 className='text-center'>{this.state.title}</h2>
+                <p className='text-center'>{this.state.content}</p>                   
+                <Switch>                            
+                    {routes.map((route) => (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.component}                     
+                      />                    
+                      ))}
+                </Switch>       
+              </div> 
+              ): (<p>loading...</p>)
+            }                   
+          </div>                  
         )
     }
 }
