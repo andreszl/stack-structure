@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "jsx": "react",
-    "outDir": "./build/api",
+    "outDir": "./build/",
     "removeComments": true,    
     "strict": true,
     "noImplicitAny": false,
@@ -17,13 +17,13 @@
     "esModuleInterop": true
   },
   
-  "files": [
-   "./api/**/*",
-   "./client/src/**/*"
+  "include": [
+   "./api/**/*"
  ],
  "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "/client/"
   ]
 }
 

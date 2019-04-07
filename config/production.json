@@ -5,6 +5,7 @@
   "graphql": {
     "path": "/graphql"
   },
-  "public": "build/client/public",
-  "data": "build/api/data"
+  "public": "build/public",
+  "data": "build/data",
+  "api": "http://localhost/api/"
 }

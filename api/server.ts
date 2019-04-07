@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import config from 'config'
 import  morgan  from "morgan";
 import cors from "cors";
+import cons from 'consolidate';
 
 import usersRoutes from './routes/users.route';
 import * as uni from './app'
@@ -34,7 +35,8 @@ class Server{
        this.app.set('port', this.port || 3000);
        this.app.use(express.static(config.get('public')));
        this.app.set('views', config.get('public'))
-       this.app.set('view engine', 'ejs')
+       this.app.engine('html', cons.swig);
+       this.app.set('view engine', 'html')
        this.app.use(morgan('dev'));
        this.app.use(cors());
        this.app.use(express.json());

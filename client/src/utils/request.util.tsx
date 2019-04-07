@@ -2,8 +2,10 @@ import axios from 'axios'
 
 async function request(configuration) :  Promise<any>  {
 
+    console.log(process.env.NODE_ENV)
+    let port = process.env.NODE_ENV == 'development' ? '3001': '3210'
     configuration = configuration || {};
-    let base = 'http://localhost:3001/api/' || configuration.base
+    let base = `http://localhost:${port}/api/` || configuration.base
     let path = base + configuration.url
 
     return await axios({
