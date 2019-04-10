@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Link, Switch } from 'react-router-dom'
-import routes from '../routes'
+import { withRouter, Route, Link, Switch } from 'react-router-dom';
+import routes from '../routes';
 import Cookies from 'js-cookie';
+import '../stylesheet/login/app.less';
 
 class App extends Component<any, any> {
     constructor(props){
         super(props)
         this.state = {
-            title: 'Server Side Rendering React',
+            title: 'Server Side Rendering React...',
             content: 'implementation of server-side-rendering',   
             url: '',
             verify: false,
@@ -33,7 +34,7 @@ class App extends Component<any, any> {
 
     componentWillReceiveProps(){
       this.setState({show: false})
-      console.log('verifying logging in componentWillReceiveProps...')
+      console.log('verifying logging in componentWillReceiveProps....')
       console.log(this.props.history.location)
       console.log(Cookies.get('user'))
       console.log(this.state)
@@ -60,9 +61,11 @@ class App extends Component<any, any> {
                 <ul>
                   <li><Link to="/">home</Link></li>
                   <li><Link to="/users">users</Link></li>
+                  <li><Link to="/login">login</Link></li>
+                  <li><Link to="/asdasd">Not Found</Link></li>
                 </ul>          
-                <h2 className='text-center'>{this.state.title}</h2>
-                <p className='text-center'>{this.state.content}</p>                   
+                <h2 className='title1'>{this.state.title}</h2>
+                <p className='content'>{this.state.content}</p>                   
                 <Switch>                            
                     {routes.map((route) => (
                       <Route
