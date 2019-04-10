@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 import { withRouter, Route, Link, Switch } from 'react-router-dom'
 import routes from '../routes'
-import Cookies from 'js-cookie';
+import { connect } from 'react-redux'
+import actions from '../actions';
 
-class App extends Component<any, any> {
+
+
+interface Props {
+  logout: Function,
+  history: any,
+  auth: any
+}
+
+interface State {
+  show: boolean,
+  url: string,
+  title: string
+  content: string,
+  verify: boolean
+}
+
+
+class App extends Component<Props, State> {
     constructor(props){
         super(props)
         this.state = {
@@ -14,19 +32,24 @@ class App extends Component<any, any> {
             show: false
         }
         this.auth = this.auth.bind(this)
+        this.logout = this.logout.bind(this)
     }
 
-    auth(){       
-      this.setState({url: this.props.history.location, verify: true})     
-      if(Cookies.get('user') == null ){
+    auth(){   
+      this.setState({url: this.props.history.location, verify: true})        
+      if(!this.props.auth.isAutenticated){
         console.log('redirecting to login...')
         this.props.history.push('/login')
-      }  
+      }
     }
 
-    componentDidMount(){
+    logout(){
+      this.props.history.push('/login')
+      this.props.logout()
+    }
+
+    componentDidMount(){     
       console.log('verifying logging in componentDidMount...')
-      console.log(Cookies.get('user'))
        this.auth()
        this.setState({show: true})
     }
@@ -34,13 +57,8 @@ class App extends Component<any, any> {
     componentWillReceiveProps(){
       this.setState({show: false})
       console.log('verifying logging in componentWillReceiveProps...')
-      console.log(this.props.history.location)
-      console.log(Cookies.get('user'))
-      console.log(this.state)
 
-      if(this.props.history.location != this.state.url){
-        console.log('routes', this.props.history.location)
-        console.log('route in state', this.state.url)
+      if(this.props.history.location != this.state.url){        
         this.setState({url: this.props.history.location, verify:false})
       }
 
@@ -52,6 +70,7 @@ class App extends Component<any, any> {
     }
 
     render() {
+        let { isAutenticated } = this.props.auth 
         return (  
           <div>
             {
@@ -60,6 +79,9 @@ class App extends Component<any, any> {
                 <ul>
                   <li><Link to="/">home</Link></li>
                   <li><Link to="/users">users</Link></li>
+                  {
+                     isAutenticated ?  <li><label onClick={ () => this.logout() } style={{cursor:'pointer', color: 'blue'}}>Log Out</label></li> : null
+                  }
                 </ul>          
                 <h2 className='text-center'>{this.state.title}</h2>
                 <p className='text-center'>{this.state.content}</p>                   
@@ -81,5 +103,13 @@ class App extends Component<any, any> {
     }
 }
 
-export default withRouter(App)
+function mapStateToProps(state){
+  return {
+      auth: state.auth,    
+  }
+}
+
+let logout = actions.authActions.logout;
+
+export default withRouter(connect(mapStateToProps, { logout })(App) as any)
 

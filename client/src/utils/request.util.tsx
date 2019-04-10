@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 async function request(configuration) :  Promise<any>  {
-
+    console.log(configuration)
     console.log(process.env.NODE_ENV)
     let port = process.env.NODE_ENV == 'development' ? '3001': '3210'
     configuration = configuration || {};
@@ -12,7 +12,7 @@ async function request(configuration) :  Promise<any>  {
         url : path,
         headers: configuration.headers || {},
         method : configuration.method || 'GET',
-        data : configuration.typeSend == 'file' ? configuration.data || {} : JSON.stringify(configuration.data) || {}
+        data : configuration.body || {}
     })
     .then( (res) => {
 		return res.data

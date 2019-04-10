@@ -1,4 +1,4 @@
-{"name":"andreszl","role":"administrador","status":false,"_id":"RMJlzAFoFv0lYOAP","createdAt":{"$$date":1553274540076},"updatedAt":{"$$date":1553274540076}}
+{"name":"andreszl","password":"123","role":"administrador","status":false,"_id":"RMJlzAFoFv0lYOAP","createdAt":{"$$date":1553274540076},"updatedAt":{"$$date":1553274540076}}
 {"name":"javierzl","role":"PHP","status":false,"_id":"SYImlKlMqZmq4cC1","createdAt":{"$$date":1553782077905},"updatedAt":{"$$date":1553782077905}}
 {"name":"dubanzl","role":"desarrollador","status":false,"_id":"lXrzIR9FyYFEClur","createdAt":{"$$date":1553277627592},"updatedAt":{"$$date":1553277627592}}
 {"name":"alex","role":"PHP","status":false,"_id":"pSBwsyPfYEdbdKQ4","createdAt":{"$$date":1553805442510},"updatedAt":{"$$date":1553805442510}}

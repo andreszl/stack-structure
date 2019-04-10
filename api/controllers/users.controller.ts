@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import UserModel from '../models/user.model'
 import { graphql } from 'graphql'
 import { modules } from '../graphql'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 class UsersController {
     
@@ -16,10 +18,21 @@ class UsersController {
     } 
     
     public async login(req: Request, res: Response): Promise<void> {
-        try{     
-            let name = req.params.name
-            let user = await UserModel.findUserByName(name);    
-            res.json(user)
+        try{ 
+            let user: any = await UserModel.findUserByName(req.body.username); 
+            if(user[0]){               
+                if(user[0].password == req.body.password){
+                    const token = jwt.sign({
+                        id: user[0].id,
+                        name: user[0].name
+                    }, 'secret')
+                    res.json({token})
+                }else{
+                    res.status(401).json({errors: {form: 'invalid credentials'} })
+                }
+            }else{
+                res.status(401).json({errors: {form: 'invalid credentials'} })                
+            }   
         }catch(err){
             console.log(err)
         }

@@ -1,12 +1,12 @@
 import { usersConstants } from '../constants/'
 import api from '../api'
 
-		
+
 export function fetchUsersBegin(){
 	let action = {
 		type: usersConstants.USERS
 	}
-	// console.log('action in users', action)
+	console.log('action in users', action)
 	return action
 }
 
@@ -43,3 +43,4 @@ export function findUsersByName(name){
 
 	return action
 }
+
