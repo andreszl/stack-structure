@@ -13,3 +13,12 @@ export async function login(credentials) : Promise<any>{
 		body: credentials
 	})
 }
+
+export async function verify(token) : Promise<any>{
+	console.log(token)
+	return await request({
+		url: "users/verify",
+		method: 'POST',
+		headers: {'Authorization': "bearer " + token},
+	})
+}

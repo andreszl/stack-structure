@@ -46,9 +46,9 @@ class Server{
     
 
     routes(): void {
-       this.server.applyMiddleware({ app: this.app, path: this.path });
-       this.app.use('/api/users', usersRoutes); 
-       this.app.get('*', (uni.handleRender));
+      this.server.applyMiddleware({ app: this.app, path: this.path });
+      this.app.use('/api/users', usersRoutes); 
+      this.app.get('*', (uni.handleRender));
     }
 
     start(): void {            

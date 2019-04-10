@@ -75,6 +75,32 @@ class UsersController {
         }
     } 
 
+    public async verify(req: Request, res: Response): Promise<any>{
+        try{
+            console.log('here!')
+            let bearerHeader = req.headers['authorization']
+            console.log(bearerHeader)
+            if(typeof bearerHeader !== 'undefined'){
+                let bearer = bearerHeader.split(' ')
+                let bearerToken = bearer[1]
+                let token = bearerToken
+                jwt.verify(token, 'secret', (err, authData) => {
+                    if(err){
+                        console.log(err)
+                        console.log({access: false, authData: authData})
+                        res.sendStatus(403)
+                    }else{
+                        res.json({access: true, authData: authData})
+                    }
+                })
+            }else{
+            res.sendStatus(403);
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
+
 
 }
 

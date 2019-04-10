@@ -8,7 +8,7 @@ import { createStore, applyMiddleware  } from 'redux'
 import reducers from './reducers'
 import thunk from "redux-thunk";
 import actions from './actions';
-
+import api from './api'
 declare global {
     interface Window { __INITIAL_STATE__: any; }
 }
@@ -20,7 +20,14 @@ delete window.__INITIAL_STATE__
 const store = createStore(reducers, initialState, applyMiddleware(thunk))
 
 if(localStorage.token){
-    store.dispatch(actions.authActions.setCurrentUser(jwt.decode(localStorage.token)))
+    api.usersAPi.verify(localStorage.token).then( (response) =>{
+        if(response){
+            console.log('Response', response)
+            store.dispatch(actions.authActions.setCurrentUser(jwt.decode(localStorage.token)))    
+        }else{
+            console.log('Invalid Credentials!')
+        }
+    })
 }
 
 render(  

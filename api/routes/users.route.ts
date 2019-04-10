@@ -13,6 +13,7 @@ class UsersRoutes {
         this.router.get('/', usersController.index);
         this.router.get('/:id', usersController.findById);
         this.router.post('/login', usersController.login)
+        this.router.post('/verify', usersController.verify)
     }
 }
 

@@ -9,8 +9,6 @@ const initialState = {
 
 const users = (state : any = initialState, action: any) => {
 	let users : any = []
-
-
 	switch(action.type){
 		case usersConstants.USERS:		
 			users = {...state, loading: true, error: null}
