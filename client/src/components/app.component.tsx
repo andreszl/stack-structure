@@ -3,13 +3,14 @@ import { withRouter, Route, Link, Switch } from 'react-router-dom'
 import routes from '../routes'
 import { connect } from 'react-redux'
 import actions from '../actions';
-
-
+import api from '../api'
+import jwt from 'jsonwebtoken'
 
 interface Props {
   logout: Function,
   history: any,
-  auth: any
+  auth: any,
+  setCurrentUser: Function
 }
 
 interface State {
@@ -17,9 +18,9 @@ interface State {
   url: string,
   title: string
   content: string,
-  verify: boolean
+  verify: boolean,
+  access: boolean
 }
-
 
 class App extends Component<Props, State> {
     constructor(props){
@@ -29,16 +30,35 @@ class App extends Component<Props, State> {
             content: 'implementation of server-side-rendering',   
             url: '',
             verify: false,
-            show: false
+            show: false,
+            access: false
         }
         this.auth = this.auth.bind(this)
         this.logout = this.logout.bind(this)
+        this.verify = this.verify.bind(this)
+    }
+
+    verify(){
+      this.setState({url: this.props.history.location, verify: true})
+      if(localStorage.token){
+        api.usersAPi.verify(localStorage.token).then((response) =>{
+            if(response){
+              console.log('Response', response)
+              this.props.setCurrentUser(jwt.decode(localStorage.token))
+            }else{
+              this.props.history.push('/login')             
+            }
+        })
+      }else{        
+        this.props.history.push('/login')
+      }
     }
 
     auth(){   
-      this.setState({url: this.props.history.location, verify: true})        
+      this.setState({url: this.props.history.location, verify: true, access: true})        
       if(!this.props.auth.isAutenticated){
         console.log('redirecting to login...')
+        this.setState({access: false}) 
         this.props.history.push('/login')
       }
     }
@@ -49,21 +69,25 @@ class App extends Component<Props, State> {
     }
 
     componentDidMount(){     
-      console.log('verifying logging in componentDidMount...')
-       this.auth()
-       this.setState({show: true})
+      this.verify()
+      this.setState({show: true})
     }
 
-    componentWillReceiveProps(){
+    async componentWillReceiveProps(){      
       this.setState({show: false})
-      console.log('verifying logging in componentWillReceiveProps...')
+
+      // console.log('verifying logging in componentWillReceiveProps...')
 
       if(this.props.history.location != this.state.url){        
         this.setState({url: this.props.history.location, verify:false})
       }
 
       if(this.state.verify == false){        
-        this.auth()
+        await this.auth()
+      }
+
+      if(this.state.access){
+        console.log('llegue aqui')
       }
 
       this.setState({show: true})
@@ -110,6 +134,7 @@ function mapStateToProps(state){
 }
 
 let logout = actions.authActions.logout;
+let setCurrentUser = actions.authActions.setCurrentUser;
 
-export default withRouter(connect(mapStateToProps, { logout })(App) as any)
+export default withRouter(connect(mapStateToProps, { logout, setCurrentUser })(App) as any)
 
