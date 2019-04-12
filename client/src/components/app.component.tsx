@@ -39,7 +39,6 @@ class App extends Component<Props, State> {
     }
 
     verify(){
-      this.setState({url: this.props.history.location, verify: true})
       if(localStorage.token){
         api.usersAPi.verify(localStorage.token).then((response) =>{
             if(response){
@@ -55,6 +54,11 @@ class App extends Component<Props, State> {
     }
 
     auth(){   
+
+      // if(this.state.access){
+        console.log('llegue aqui')
+        // }
+
       this.setState({url: this.props.history.location, verify: true, access: true})        
       if(!this.props.auth.isAutenticated){
         console.log('redirecting to login...')
@@ -68,26 +72,24 @@ class App extends Component<Props, State> {
       this.props.logout()
     }
 
-    componentDidMount(){     
-      this.verify()
+    async componentDidMount(){     
+      await this.verify()
       this.setState({show: true})
+    }
+
+    componentWillMount(){
+      this.setState({url: this.props.history.location, verify: true})
     }
 
     async componentWillReceiveProps(){      
       this.setState({show: false})
 
-      // console.log('verifying logging in componentWillReceiveProps...')
-
       if(this.props.history.location != this.state.url){        
         this.setState({url: this.props.history.location, verify:false})
       }
 
-      if(this.state.verify == false){        
+      if(!this.state.verify){        
         await this.auth()
-      }
-
-      if(this.state.access){
-        console.log('llegue aqui')
       }
 
       this.setState({show: true})
