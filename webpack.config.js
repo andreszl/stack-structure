@@ -21,7 +21,7 @@ module.exports = {
 
         // this handles the bundled .css output file
         new ExtractTextPlugin({
-          filename: 'main.css',
+          filename: 'app.css',
         }),
 
         // this handles the bundled .html output file
@@ -29,7 +29,7 @@ module.exports = {
             title:"development"
         }),
         
-        //this handles create 
+        //this handles append div.app
         new ReactRootPlugin('app')
      ],
     module: {
