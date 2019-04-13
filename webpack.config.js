@@ -18,8 +18,13 @@ module.exports = {
      ],
     module: {
         rules: [
+            //tsx loader 
             {test: /\.tsx?$/, loader: "awesome-typescript-loader", exclude: "/node_modules/"},
+           
+            //source-map-loader
             {enforce: "pre", test: /\.js$/, loader: "source-map-loader" }, 
+            
+            //less loader 
             {use: ExtractTextPlugin.extract({ use: ['css-loader', 'less-loader']}), test: /\.less$/},
 
              // this rule handles images

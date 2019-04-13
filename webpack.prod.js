@@ -11,6 +11,6 @@ module.exports = merge(config,{
    },plugins: [
       new HtmlWebpackPlugin({
          title: 'fingit',
-      }),new ReactRootPlugin('app')
+      }),new ReactRootPlugin('app'), 
    ],
-})
+});
