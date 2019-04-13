@@ -1,4 +1,8 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRootPlugin = require('html-webpack-root-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 module.exports = {
     mode: "development",
@@ -11,10 +15,22 @@ module.exports = {
         extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     plugins: [
+
+        //this handles clean folder 
+        new CleanWebpackPlugin(),
+
         // this handles the bundled .css output file
         new ExtractTextPlugin({
           filename: 'main.css',
         }),
+
+        // this handles the bundled .html output file
+        new HtmlWebpackPlugin({
+            title:"development"
+        }),
+        
+        //this handles create 
+        new ReactRootPlugin('app')
      ],
     module: {
         rules: [
