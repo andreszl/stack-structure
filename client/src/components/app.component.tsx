@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, Route, Link, Switch } from 'react-router-dom'
 import routes from '../routes'
 import { connect } from 'react-redux'
-import actions from '../actions';
+import actions from '../actions'
 import api from '../api'
 import jwt from 'jsonwebtoken'
 import '../stylesheet/login/app.less';
@@ -27,8 +27,8 @@ class App extends Component<Props, State> {
     constructor(props){
         super(props)
         this.state = {
-            title: 'Server Side Rendering React...',
-            content: 'implementation of server-side-rendering',   
+            title: 'Server Side Rendering React..!',
+            content: 'implementation of server-side-rendering changed!',   
             url: '',
             verify: false,
             show: false,
