@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import actions from '../actions';
 import api from '../api'
 import jwt from 'jsonwebtoken'
+import '../stylesheet/login/app.less';
 
 interface Props {
   logout: Function,
@@ -26,7 +27,7 @@ class App extends Component<Props, State> {
     constructor(props){
         super(props)
         this.state = {
-            title: 'Server Side Rendering React',
+            title: 'Server Side Rendering React...',
             content: 'implementation of server-side-rendering',   
             url: '',
             verify: false,
@@ -108,9 +109,11 @@ class App extends Component<Props, State> {
                   {
                      isAutenticated ?  <li><label onClick={ () => this.logout() } style={{cursor:'pointer', color: 'blue'}}>Log Out</label></li> : null
                   }
+                  <li><Link to="/login">login</Link></li>
+                  <li><Link to="/asdasd">Not Found</Link></li>
                 </ul>          
-                <h2 className='text-center'>{this.state.title}</h2>
-                <p className='text-center'>{this.state.content}</p>                   
+                <h2 className='title1'>{this.state.title}</h2>
+                <p className='content'>{this.state.content}</p>                   
                 <Switch>                            
                     {routes.map((route) => (
                       <Route
