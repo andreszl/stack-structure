@@ -23,7 +23,6 @@
   "devDependencies": {
     "@graphql-modules/core": "^0.7.0",
     "@types/config": "0.0.34",
-    "@types/consolidate": "0.0.34",
     "@types/copyfiles": "^2.1.0",
     "@types/cors": "^2.8.4",
     "@types/ejs": "^2.6.3",
