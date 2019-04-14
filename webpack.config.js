@@ -6,6 +6,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "development",
+    watchOptions: {
+        ignored: /node_modules/,
+    },
     entry: "./client/src/index.tsx",
     output: {
         filename: "app.js",
