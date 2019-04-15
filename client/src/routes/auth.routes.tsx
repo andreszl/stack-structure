@@ -1,7 +1,7 @@
-import Login from '../components/login.component'
+import Login from '../components/login.component';
 
 export const authRoutes : any = {
-    path: '/login',
-    exact: true,
-    component: Login
-}
+	path: '/login',
+	exact: true,
+	component: Login,
+};

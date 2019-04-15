@@ -3,8 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: [
-    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+  extends: [   
     'airbnb'
   ],
   globals: {
@@ -23,7 +22,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "lines-between-class-members": "off",
     "padded-blocks": "off",
-    "indent": ["error", "tab"],
+    "indent": ["error", "tab", { "SwitchCase": 1 }],
     "class-methods-use-this": "off",
     "no-undef": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
@@ -40,6 +39,11 @@ module.exports = {
     "no-unused-expressions": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/label-has-for": "off",
-    "array-callback-return": "off"
+    "array-callback-return": "off",
+    "linebreak-style": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used", "argsIgnorePattern": "^_|^next$", "varsIgnorePattern": "^React$" }],
+    "react/jsx-one-expression-per-line": "off"
   }
 };

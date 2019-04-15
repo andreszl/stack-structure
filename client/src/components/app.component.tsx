@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, Route, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { History } from 'history';
+import { History } from 'history'; // eslint-disable-line no-unused-vars
 import jwt from 'jsonwebtoken';
 import routes from '../routes';
 import actions from '../actions';
@@ -17,7 +17,7 @@ interface Props {
 
 interface State {
 	show: boolean;
-	url: History.LocationState;
+	location: History.LocationState;
 	title: string;
 	content: string;
 	verify: boolean;
@@ -29,7 +29,7 @@ class App extends Component<Props, State> {
 		this.state = {
 			title: 'Server Side Rendering React..!',
 			content: 'implementation of server-side-rendering changed!',
-			url: null,
+			location: null,
 			verify: false,
 			show: false,
 		};
@@ -41,7 +41,7 @@ class App extends Component<Props, State> {
 
 	componentWillMount(): void {
 		const { history } = this.props;
-		this.setState({ url: history.location });
+		this.setState({ location: history.location });
 	}
 
 	async componentDidMount(): Promise<void> {
@@ -52,9 +52,9 @@ class App extends Component<Props, State> {
 	async componentWillReceiveProps(): Promise<void> {
 		this.setState({ show: false });
 		const { history } = this.props;
-		const { url } = this.state;
-		if (history.location !== url) {
-			this.setState({ url: history.location, verify: false });
+		const { location } = this.state;
+		if (history.location !== location) {
+			this.setState({ location: history.location, verify: false });
 		}
 
 		const { verify } = this.state;
@@ -84,7 +84,7 @@ class App extends Component<Props, State> {
 	auth(): void {
 		const { history }	= this.props;
 		const { auth } = this.props;
-		this.setState({ url: history.location, verify: true });
+		this.setState({ location: history.location, verify: true });
 		if (!auth.isAutenticated) {
 			console.log('redirecting to login...');
 			history.push('/login');
@@ -119,16 +119,20 @@ class App extends Component<Props, State> {
 							<p className="content">{content}</p>
 							<Switch>
 								{
-									routes.map((route): any => {
+									routes.map(
 										(
-											<Route
-												key={route.path}
-												path={route.path}
-												exact={route.exact}
-												component={route.component}
-											/>
-										);
-									})
+											route: {path: string; exact: boolean; component: React.ComponentClass},
+										): void => {
+											(
+												<Route
+													key={route.path}
+													path={route.path}
+													exact={route.exact}
+													component={route.component}
+												/>
+											);
+										},
+									)
 								}
 							</Switch>
 						</div>
