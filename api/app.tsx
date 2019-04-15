@@ -1,3 +1,3 @@
-export function handleRender(req, res) {
-        res.render('index')
+export function handleRender(req, res): void {
+	res.render('index');
 }

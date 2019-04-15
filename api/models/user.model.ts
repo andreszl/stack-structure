@@ -1,76 +1,101 @@
-import db from "../data/db.conn";
+import db from '../data/db.conn';
+
+import User from './interfaces/user.interface';
 
 class UserModel {
-    public _id : string;
-    public name : string;
-    public role : string;
-    public status : string;
 
-    constructor(user: any) {
-        this._id = user._id;
-        this.name = user.name;
-        this.role = user.role;
-        this.status = user.status;
-      }
+	public static index(): Promise<Function> {
+		try {
+			return new Promise((resolve: Function): void => {
+				db.find({}, (err: Error, users: Record<string, User>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(users);
+				});
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	public static findUserByName(name: string): Promise<Function> {
+		try {
+			return new Promise((resolve: Function): void => {
+				db.find({ name }, (err: Error, user: Record<string, User>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(user);
+				});
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	public static findUsersByName(name: string): Promise<Function> {
+		try {
+			const regexString: string = `${name}`;
+			const regex: RegExp = new RegExp(regexString);
+			return new Promise((resolve: Function): void => {
+				db.find(
+					{ name: { $regex: regex } },
+					(err: Error, user: Record<string, User>): void => {
+						if (err) {
+							throw err;
+						}
+						resolve(user);
+					},
+				);
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
 
 
-    public static index(callback){
-        db.users.find({}, (err, data) => {
-            if(err){
-                console.log(err)
-            }
-            callback(data)
-        })
-    }
+	public static save(user: object): Promise<Function> {
+		return new Promise((resolve: Function): void => {
+			try {
+				db.insert(user, (err, info): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(info);
+				});
+			} catch (err) {
+				throw err;
+			}
+		});
+	}
 
-    public static findUserByName(name){
-        return new Promise(resolve => {
-            db.users.find({name: name}, (err, user) => {
-                resolve(user)
-            })
-        })
-    }
+	public static find(): Promise<Function> {
+		try {
+			return new Promise((resolve: Function): void => {
+				db.find({}, (err: Error, users: Record<string, User>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(users);
+				});
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
 
-    public static findUsersByName(name){
-        let regex : any = `${name}`;
-        regex = new RegExp(regex);
-        return new Promise(resolve => {
-            db.users.find({name: {$regex : regex}}, (err, user) => {
-                console.log(user)
-                resolve(user)
-            })
-        })
-    }
-
-
-    public static save(user: Object){
-        return new Promise(resolve => {
-            db.users.insert(user, (err, user) => {
-                if(err){
-                    throw err
-                }
-                resolve(user)
-            })
-        })       
-    }
-
-    public static find(){
-        return new Promise(resolve => {
-            db.users.find({}, (err, users) =>{
-                resolve(users)
-            })
-        })
-    }
-
-    public static findById(id){
-        return new Promise(resolve => {
-            db.users.find({_id: id}, (err, user) => {
-                resolve(user)
-            })
-        })
-    }
+	public static findById(id: string): Promise<Function> {
+		try {
+			return new Promise((resolve: Function): void => {
+				db.find({ _id: id }, (err: Error, user: Record<string, User>): void => {
+					resolve(user);
+				});
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
 }
 
-export default UserModel
-
-// db.find({ name: {$in :'andreszl'}})
+export default UserModel;

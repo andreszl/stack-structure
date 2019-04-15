@@ -1,22 +1,22 @@
 import { Router } from 'express';
-import { usersController } from '../controllers/users.controller';
+import UsersController from '../controllers/users.controller';
 
 class UsersRoutes {
-    public router: Router = Router();
+	public router: Router = Router();
+	public usersController: UsersController;
 
-    constructor(){
-        this.config();
-    }
+	constructor() {
+		this.usersController = new UsersController();
+		this.config();
+	}
 
-    config(): void{
-        this.router.post('/', usersController.save)
-        this.router.get('/', usersController.index);
-        this.router.get('/:id', usersController.findById);
-        this.router.post('/login', usersController.login)
-        this.router.post('/verify', usersController.verify)
-    }
+	config(): void{
+		this.router.post('/', this.usersController.save);
+		this.router.get('/', this.usersController.index);
+		this.router.get('/:id', this.usersController.findById);
+		this.router.post('/login', this.usersController.login);
+		this.router.post('/verify', this.usersController.verify);
+	}
 }
 
-const usersRoutes = new UsersRoutes();
-
-export default usersRoutes.router;
+export default new UsersRoutes().router;

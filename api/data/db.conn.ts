@@ -1,9 +1,6 @@
-import config from 'config'
+import config from 'config';
+import Datastore from 'nedb';
 
-var Datastore = require('nedb')
-var db = new Datastore();
+const db = new Datastore({ filename: `${config.get('data')}/users.db`, timestampData: true, autoload: true });
 
-db = {};
-db.users = new Datastore({ filename: `${config.get('data')}/users.db`,timestampData: true, autoload: true});
-
-export default db
+export default db;

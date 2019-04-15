@@ -1,107 +1,95 @@
-import { Request, Response } from "express";
-import UserModel from '../models/user.model'
-import { graphql } from 'graphql'
-import { modules } from '../graphql'
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+
+import { graphql } from 'graphql';
+import { modules } from '../graphql';
+import UserModel from '../models/user.model';
 
 class UsersController {
-    
-    public async index(req: Request, res: Response): Promise<void> {
-        try{     
-            let { schema, context } =  modules;
-            let { data } = await graphql(schema,`{users{id, name, role, status, createdAt, updatedAt}}`,context)
-            res.json(data.users)
-        }catch(err){
-            console.log(err)
-        }
-    } 
-    
-    public async login(req: Request, res: Response): Promise<void> {
-        try{ 
-            let user: any = await UserModel.findUserByName(req.body.username); 
-            if(user[0]){               
-                if(user[0].password == req.body.password){
-                    const token = jwt.sign({
-                        id: user[0].id,
-                        name: user[0].name
-                    }, 'secret')
-                    res.json({token})
-                }else{
-                    res.status(401).json({errors: {form: 'invalid credentials'} })
-                }
-            }else{
-                res.status(401).json({errors: {form: 'invalid credentials'} })                
-            }   
-        }catch(err){
-            console.log(err)
-        }
-    } 
 
+	public async index(req: Request, res: Response): Promise<void> {
+		try {
+			const { schema, context } = modules;
+			const { data } = await graphql(schema, '{users{id, name, role, status, createdAt, updatedAt}}', context);
+			res.json(data.users);
+		} catch (err) {
+			throw err;
+		}
+	}
 
-    public async save(req: Request, res: Response): Promise<void> {
-        try{     
-            let user = {
-                name: req.body.name,
-                role: req.body.role,
-                status: false
-            }
+	public async login(req: Request, res: Response): Promise<void> {
+		try {
+			const user = await UserModel.findUserByName(req.body.username);
+			if (user[0]) {
+				if (user[0].password === req.body.password) {
+					const token = jwt.sign({
+						id: user[0].id,
+						name: user[0].name,
+					}, 'secret');
+					res.json({ token });
+				} else {
+					res.status(401).json({ errors: { form: 'invalid credentials' } });
+				}
+			} else {
+				res.status(401).json({ errors: { form: 'invalid credentials' } });
+			}
+		} catch (err) {
+			throw err;
+		}
+	}
 
-            
-            
-            let name = user.name;
-            let result : any = await UserModel.findUserByName(name)
+	public async save(req: Request, res: Response): Promise<void> {
+		try {
+			const user: { name: string; role: string; status: boolean } = {
+				name: req.body.name,
+				role: req.body.role,
+				status: false,
+			};
 
-            if(result.length >= 1){
-                res.json(result)       
-            }else{                  
-                // UserModel.save(user, (userSuccess) => {
-                //     res.status(200)
-                //     res.json(userSuccess)
-                // })
-            }           
-        }catch(err){
-            console.log(err)
-        }
-    }  
+			const result = await UserModel.findUserByName(user.name);
 
-    public async findById(req: Request, res: Response): Promise<void> {
-        try{     
-            let id = req.params.id
-            let user = await UserModel.findById(id);
-            res.json(user)    
-        }catch(err){
-            console.log(err)
-        }
-    } 
+			if (result.length >= 1) {
+				res.json(result);
+			} else {
+				const info = await UserModel.save(user);
+				res.status(200);
+				res.json(info);
+			}
+		} catch (err) {
+			throw err;
+		}
+	}
 
-    public async verify(req: Request, res: Response): Promise<any>{
-        try{
-            console.log('here!')
-            let bearerHeader = req.headers['authorization']
-            console.log(bearerHeader)
-            if(typeof bearerHeader !== 'undefined'){
-                let bearer = bearerHeader.split(' ')
-                let bearerToken = bearer[1]
-                let token = bearerToken
-                jwt.verify(token, 'secret', (err, authData) => {
-                    if(err){
-                        console.log(err)
-                        console.log({access: false, authData: authData})
-                        res.sendStatus(403)
-                    }else{
-                        res.json({access: true, authData: authData})
-                    }
-                })
-            }else{
-            res.sendStatus(403);
-            }
-        }catch(err){
-            console.log(err)
-        }
-    }
+	public async findById(req: Request, res: Response): Promise<void> {
+		try {
+			const user = await UserModel.findById(req.params.id);
+			res.json(user);
+		} catch (err) {
+			throw err;
+		}
+	}
 
-
+	public async verify(req: Request, res: Response): Promise<void> {
+		try {
+			const bearerHeader = req.headers.authorization;
+			if (typeof bearerHeader !== 'undefined') {
+				const bearer = bearerHeader.split(' ');
+				const bearerToken = bearer[1];
+				const token = bearerToken;
+				jwt.verify(token, 'secret', (err: Error, authData): void => {
+					if (err) {
+						res.sendStatus(403);
+					} else {
+						res.json({ access: true, authData });
+					}
+				});
+			} else {
+				res.sendStatus(403);
+			}
+		} catch (err) {
+			throw err;
+		}
+	}
 }
 
-export const usersController = new UsersController();
+export default UsersController;

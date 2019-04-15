@@ -1,9 +1,9 @@
-import * as usersActions from './users.actions'
-import * as authActions from './auth.actions'
+import * as usersActions from './users.actions';
+import * as authActions from './auth.actions';
 
-const actions = { 
-    usersActions,
-    authActions
-}
+const actions = {
+	usersActions,
+	authActions,
+};
 
-export default actions
+export default actions;

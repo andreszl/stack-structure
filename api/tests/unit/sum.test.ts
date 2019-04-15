@@ -1,6 +1,5 @@
+import sum from '../../../utils/functions/operations.util';
 
-it('adds 1 + 2 to equal 3 in Typescript', () => {
-    const sum = require('../../../utils/sum.ts').default;
-    expect(sum(1, 2)).toBe(3);
+it('adds 1 + 2 to equal 3 in Typescript', (): void => {
+	expect(sum(1, 2)).toBe(3);
 });
-

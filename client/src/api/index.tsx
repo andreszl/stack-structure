@@ -1,7 +1,7 @@
-import * as usersAPi from './users.api'
+import * as usersAPi from './users.api';
 
 const api = {
-    usersAPi
-}
+	usersAPi,
+};
 
-export default api
+export default api;

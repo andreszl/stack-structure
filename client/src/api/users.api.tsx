@@ -1,24 +1,21 @@
-import request from '../utils/request.util'
+import request from '../utils/request.util';
 
-export async function users() : Promise<any>{
-	return await request({
-		url: "users"
-	})
+export async function users(): Promise<object[]> {
+	return request({ url: 'users' });
 }
 
-export async function login(credentials) : Promise<any>{
-	return await request({
-		url: "users/login",
+export async function login(credentials: object): Promise<{token: string}> {
+	return request({
+		url: 'users/login',
 		method: 'POST',
-		body: credentials
-	})
+		body: credentials,
+	});
 }
 
-export async function verify(token) : Promise<any>{
-	console.log(token)
-	return await request({
-		url: "users/verify",
+export async function verify(token: string): Promise<object> {
+	return request({
+		url: 'users/verify',
 		method: 'POST',
-		headers: {'Authorization': "bearer " + token},
-	})
+		headers: { Authorization: `bearer ${token}` },
+	});
 }
