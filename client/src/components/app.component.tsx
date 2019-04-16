@@ -27,8 +27,8 @@ class App extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			title: 'Server Side Rendering React..!',
-			content: 'implementation of server-side-rendering changed!',
+			title: 'Server Side Rendering React!',
+			content: 'implementation of server-side-rendering!',
 			location: null,
 			verify: false,
 			show: false,

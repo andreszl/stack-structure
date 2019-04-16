@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 interface Props{
@@ -16,9 +16,20 @@ interface Props{
 	]
 }
 
-class UsersFiltered extends PureComponent<Props, {}> {
+interface State {
+	title: string
+}
+class UsersFiltered extends Component<Props, State> {
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: 'title',
+		};
+	}
+
 	render() {
 		const { error, loading, usersFiltered } = this.props;
+		const { title } = this.state;
 		if (error) {
 			return <div>Error! {error.message}</div>;
 		}
@@ -28,6 +39,7 @@ class UsersFiltered extends PureComponent<Props, {}> {
 
 		return (
 			<div>
+				<h3>{title}</h3>
 				<ul>
 					{usersFiltered.map((user) => {
 						(
