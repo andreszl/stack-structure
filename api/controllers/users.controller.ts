@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response } from 'express'; // eslint-disable-line no-unused-vars
 import jwt from 'jsonwebtoken';
 
 import { graphql } from 'graphql';
@@ -10,7 +10,8 @@ class UsersController {
 	public async index(req: Request, res: Response): Promise<void> {
 		try {
 			const { schema, context } = modules;
-			const { data } = await graphql(schema, '{users{id, name, role, status, createdAt, updatedAt}}', context);
+			const fields = '{users{id, name, role, status, createdAt, updatedAt}}';
+			const { data } = await graphql(schema, `${fields}`, context);
 			res.json(data.users);
 		} catch (err) {
 			throw err;

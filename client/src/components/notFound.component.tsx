@@ -16,10 +16,10 @@ import { Dimmer, Loader } from 'semantic-ui-react';
 
 // export default NotFound;
 
-const NotFound = (): void => {
+const NotFound = (): any => (
 	<Dimmer active>
 		<Loader indeterminate>Preparing Files</Loader>
-	</Dimmer>;
-};
+	</Dimmer>
+);
 
 export default NotFound;

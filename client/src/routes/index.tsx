@@ -4,14 +4,14 @@ import App from '../components/app.component';
 import NotFound from '../components/notFound.component';
 
 
-const routes: any = [
-	authRoutes,
+const routes = [
 	{
 		path: '/',
 		exact: true,
 		component: App,
 	},
 	userRoutes,
+	authRoutes,
 	{
 		path: '*',
 		exact: true,

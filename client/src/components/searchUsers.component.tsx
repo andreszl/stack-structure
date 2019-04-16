@@ -45,6 +45,6 @@ class SearchUsers extends Component<Props, {}> {
 }
 
 
-const findUsersByName = actions.usersActions;
+const { findUsersByName } = actions.usersActions;
 
 export default connect(null, { findUsersByName })(SearchUsers as any);

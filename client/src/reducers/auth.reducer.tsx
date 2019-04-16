@@ -14,6 +14,12 @@ const auth = (state : any = initialState, action: any) => {
 				user: action.user,
 			};
 
+		case authConstants.REMOVE_CURRENT_USER:
+			return {
+				isAutenticated: false,
+				user: {},
+			};
+
 		default:
 			return state;
 	}

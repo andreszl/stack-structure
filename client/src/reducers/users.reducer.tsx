@@ -22,8 +22,8 @@ const users = (state = initialState, action: any) => {
 			return 	{
 				...state,
 				loading: false,
-				usersFiltered: action.payload.name === '' ? [] : state.users.filter((user: { name: { indexOf: (arg0: any) => number; }; }) => {
-					user.name.indexOf(action.payload.name) > -1;
+				usersFiltered: action.payload === '' ? [] : state.users.filter((user: { name: { indexOf: (arg0: any) => number; }; }) => {
+					return user.name.indexOf(action.payload) > -1;
 				}),
 			};
 		default:

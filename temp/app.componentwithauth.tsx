@@ -11,15 +11,16 @@ import '../stylesheet/login/app.less';
 interface Props {
 	logout: Function;
 	history: History;
-	auth: { isAutenticated: boolean, user: { role: string; } };
+	auth: { isAutenticated: boolean };
 	setCurrentUser: Function;
 }
 
 interface State {
+	show: boolean;
+	location: History.LocationState;
 	title: string;
 	content: string;
-	show: boolean;
-	location: string;
+	verify: boolean;
 }
 
 class App extends Component<Props, State> {
@@ -28,40 +29,50 @@ class App extends Component<Props, State> {
 		this.state = {
 			title: 'Server Side Rendering React!',
 			content: 'implementation of server-side-rendering!',
+			location: null,
+			verify: false,
 			show: false,
-			location: '',
 		};
 
-		this.middleware = this.middleware.bind(this);
+		this.auth = this.auth.bind(this);
 		this.logout = this.logout.bind(this);
 		this.verify = this.verify.bind(this);
 	}
 
+	componentWillMount(): void {
+		const { history } = this.props;
+		this.setState({ location: history.location });
+	}
+
 	async componentDidMount(): Promise<void> {
 		await this.verify();
+		this.setState({ show: true });
 	}
 
 	async componentWillReceiveProps(): Promise<void> {
 		this.setState({ show: false });
-
 		const { history } = this.props;
 		const { location } = this.state;
+		if (history.location !== location) {
+			this.setState({ location: history.location, verify: false });
+		}
 
-		if (history.location.pathname !== location) {
-			this.setState({ location: history.location.pathname });
-			await this.middleware(history.location.pathname);
+		const { verify } = this.state;
+		if (!verify) {
+			await this.auth();
 		}
 
 		this.setState({ show: true });
 	}
 
-	async verify(): Promise<void> {
+	verify(): void {
 		const { history }	= this.props;
 		if (localStorage.token) {
-			await api.usersAPi.verify(localStorage.token).then((response): void => {
+			api.usersAPi.verify(localStorage.token).then((response): void => {
 				if (response) {
 					const { setCurrentUser } = this.props;
 					setCurrentUser(jwt.decode(localStorage.token));
+					console.log(jwt.decode(localStorage.token));
 				} else {
 					history.push('/login');
 				}
@@ -71,29 +82,18 @@ class App extends Component<Props, State> {
 		}
 	}
 
-	middleware(location: string): void {
+	auth(): void {
 		const { history }	= this.props;
 		const { auth } = this.props;
-		switch (location) {
-			case '/login':
-				if (auth.isAutenticated) {
-					history.goBack();
-				}
-				break;
-			case '/users':
-				if (!auth.isAutenticated) {
-					history.push('/login');
-				} else if (auth.user.role !== 'administrador') {
-					history.goBack();
-				}
-				break;
-			default:
-				break;
-
+		this.setState({ location: history.location, verify: true });
+		if (!auth.isAutenticated) {
+			console.log('redirecting to login...');
+			history.push('/login');
 		}
 	}
 
 	logout(): void {
+		console.log('logout component');
 		const { history, logout }	= this.props;
 		logout();
 		history.push('/login');
@@ -123,8 +123,8 @@ class App extends Component<Props, State> {
 									routes.map(
 										(
 											route: {path: string; exact: boolean; component: React.ComponentClass},
-										): JSX.Element => {
-											return (
+										): void => {
+											(
 												<Route
 													key={route.path}
 													path={route.path}

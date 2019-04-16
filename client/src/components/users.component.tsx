@@ -32,8 +32,8 @@ class Users extends Component<Props, State> {
 		return (
 			<div>
 				<ul>
-					{users.map((user) => {
-						(
+					{users.map((user: { id: string; name: string; role: string; }) => {
+						return (
 							<li key={user.id}>
 								<label>{user.name}</label> <label>{user.role}</label>
 							</li>

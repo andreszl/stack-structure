@@ -5,8 +5,6 @@ export function fetchUsersBegin(): object {
 	const action = {
 		type: usersConstants.USERS,
 	};
-
-	console.log('action in users', action);
 	return action;
 }
 
@@ -20,8 +18,8 @@ export function fetchUsersSuccess(users: object[]): object {
 }
 
 
-export function fetchUsers(): void {
-	async (dispatch: Function): Promise<void> => {
+export function fetchUsers(): Function {
+	return async (dispatch: Function): Promise<void> => {
 		dispatch((fetchUsersBegin()));
 		const users = await api.usersAPi.users();
 		dispatch(fetchUsersSuccess(users));

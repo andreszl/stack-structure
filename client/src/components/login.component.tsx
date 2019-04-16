@@ -66,11 +66,11 @@ class Login extends Component<Props, State> {
 
 	}
 
-	onSubmit(e: React.FormEvent<HTMLFormElement>): void {
+	async onSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
 		e.preventDefault();
 		const { username, password } = this.state;
 		const { login } = this.props;
-		login({ username, password });
+		await login({ username, password });
 	}
 
 	render(): JSX.Element {

@@ -43,7 +43,8 @@ module.exports = {
     "linebreak-style": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
-    "no-unused-vars": [2, {"vars": "all", "args": "after-used", "argsIgnorePattern": "^_|^next$", "varsIgnorePattern": "^React$" }],
-    "react/jsx-one-expression-per-line": "off"
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used", "argsIgnorePattern": "^_|^next$"}],
+    "react/jsx-one-expression-per-line": "off",
+    "arrow-body-style": "off"
   }
 };
