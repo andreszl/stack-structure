@@ -20,7 +20,7 @@ const store = createStore(reducers, initialState, applyMiddleware(thunk));
 render(
 	<Provider store={store}>
 		<Router>
-			<App />
+			<App auth={{ isAutenticated: false, user: { role: '' } }} />
 		</Router>
 	</Provider>,
 	document.getElementById('app'),

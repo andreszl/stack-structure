@@ -1,17 +1,16 @@
 import { userRoutes } from './users.routes';
 import { authRoutes } from './auth.routes';
-import App from '../components/app.component';
 import NotFound from '../components/notFound.component';
-
+import Home from '../components/home.component';
 
 const routes = [
-	{
-		path: '/',
-		exact: true,
-		component: App,
-	},
 	userRoutes,
 	authRoutes,
+	{
+		path: '/home',
+		exact: true,
+		component: Home,
+	},
 	{
 		path: '*',
 		exact: true,

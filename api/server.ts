@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application } from 'express'; // eslint-disable-line no-unused-vars
 import config from 'config';
 import morgan from 'morgan';
 import cors from 'cors';

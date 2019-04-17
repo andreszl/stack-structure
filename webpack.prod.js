@@ -1,10 +1,10 @@
 const merge = require('webpack-merge');
 const config = require('./webpack.config');
 
-module.exports = merge(config,{
-   mode:'production',
-   output: {
-      filename: "app.js",
-      path: __dirname + "/build/public"
-   }
+module.exports = merge(config, {
+	mode: 'production',
+	output: {
+		filename: 'app.js',
+		path: `${__dirname}/build/public`,
+	},
 });

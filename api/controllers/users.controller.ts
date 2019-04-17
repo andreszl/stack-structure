@@ -26,6 +26,7 @@ class UsersController {
 					const token = jwt.sign({
 						id: user[0].id,
 						name: user[0].name,
+						role: user[0].role,
 					}, 'secret');
 					res.json({ token });
 				} else {
