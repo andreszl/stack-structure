@@ -1,0 +1,11 @@
+{
+  "express": {
+    "port": 3210
+  },
+  "graphql": {
+    "path": "/graphql"
+  },
+  "public": "build/client/public",
+  "data": "build/api/data",
+  "api": "http://localhost/api/"
+}
