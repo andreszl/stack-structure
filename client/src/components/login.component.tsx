@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dropdown, Grid } from 'semantic-ui-react';
+import { Grid, Form, Container, Button } from 'semantic-ui-react';
 import actions from '../actions';
+import '../stylesheet/login/login.less';
 
 interface Props {
 	login: Function;
@@ -11,7 +12,6 @@ interface Props {
 interface State {
 	username: string;
 	password: string;
-	countryOptions: { key: string; value: string; flag: string; text: string }[];
 }
 
 class Login extends Component<Props, State> {
@@ -20,49 +20,7 @@ class Login extends Component<Props, State> {
 		this.state = {
 			username: '',
 			password: '',
-			countryOptions: [
-				{ key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
-				{ key: 'ax', value: 'ax', flag: 'ax', text: 'Aland Islands' },
-				{ key: 'al', value: 'al', flag: 'al', text: 'Albania' },
-				{ key: 'dz', value: 'dz', flag: 'dz', text: 'Algeria' },
-				{ key: 'as', value: 'as', flag: 'as', text: 'American Samoa' },
-				{ key: 'ad', value: 'ad', flag: 'ad', text: 'Andorra' },
-				{ key: 'ao', value: 'ao', flag: 'ao', text: 'Angola' },
-				{ key: 'ai', value: 'ai', flag: 'ai', text: 'Anguilla' },
-				{ key: 'ag', value: 'ag', flag: 'ag', text: 'Antigua' },
-				{ key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
-				{ key: 'am', value: 'am', flag: 'am', text: 'Armenia' },
-				{ key: 'aw', value: 'aw', flag: 'aw', text: 'Aruba' },
-				{ key: 'au', value: 'au', flag: 'au', text: 'Australia' },
-				{ key: 'at', value: 'at', flag: 'at', text: 'Austria' },
-				{ key: 'az', value: 'az', flag: 'az', text: 'Azerbaijan' },
-				{ key: 'bs', value: 'bs', flag: 'bs', text: 'Bahamas' },
-				{ key: 'bh', value: 'bh', flag: 'bh', text: 'Bahrain' },
-				{ key: 'bd', value: 'bd', flag: 'bd', text: 'Bangladesh' },
-				{ key: 'bb', value: 'bb', flag: 'bb', text: 'Barbados' },
-				{ key: 'by', value: 'by', flag: 'by', text: 'Belarus' },
-				{ key: 'be', value: 'be', flag: 'be', text: 'Belgium' },
-				{ key: 'bz', value: 'bz', flag: 'bz', text: 'Belize' },
-				{ key: 'bj', value: 'bj', flag: 'bj', text: 'Benin' },
-				{ key: 'bm', value: 'bm', flag: 'bm', text: 'Bermuda' },
-				{ key: 'bt', value: 'bt', flag: 'bt', text: 'Bhutan' },
-				{ key: 'bo', value: 'bo', flag: 'bo', text: 'Bolivia' },
-				{ key: 'ba', value: 'ba', flag: 'ba', text: 'Bosnia' },
-				{ key: 'bw', value: 'bw', flag: 'bw', text: 'Botswana' },
-				{ key: 'bv', value: 'bv', flag: 'bv', text: 'Bouvet Island' },
-				{ key: 'br', value: 'br', flag: 'br', text: 'Brazil' },
-				{ key: 'vg', value: 'vg', flag: 'vg', text: 'British Virgin Islands' },
-				{ key: 'bn', value: 'bn', flag: 'bn', text: 'Brunei' },
-				{ key: 'bg', value: 'bg', flag: 'bg', text: 'Bulgaria' },
-				{ key: 'bf', value: 'bf', flag: 'bf', text: 'Burkina Faso' },
-				{ key: 'bi', value: 'bi', flag: 'bi', text: 'Burundi' },
-				{ key: 'tc', value: 'tc', flag: 'tc', text: 'Caicos Islands' },
-				{ key: 'kh', value: 'kh', flag: 'kh', text: 'Cambodia' },
-				{ key: 'cm', value: 'cm', flag: 'cm', text: 'Cameroon' },
-				{ key: 'ca', value: 'ca', flag: 'ca', text: 'Canada' },
-			],
 		};
-
 		this.onSubmit = this.onSubmit.bind(this);
 		this.emailChangedLogin = this.emailChangedLogin.bind(this);
 
@@ -81,37 +39,50 @@ class Login extends Component<Props, State> {
 	}
 
 	render(): JSX.Element {
-		const { countryOptions } = this.state;
 		return (
-			<div>
-				<Grid centered columns={2}>
-					<Grid.Column>
-						<Dropdown
-							placeholder="Select Country"
-							fluid
-							search
-							selection
-							options={countryOptions}
-						/>
+			<Grid centered>
+				<Grid.Column width={16} className="menu">
+					<h1>Sexus.co</h1>
+				</Grid.Column>
+				<Container>
+					<Grid.Column width={16} className="login_box">
+						<Form size="large" className="login_form">
+							<Grid.Row>
+								<Grid.Column className="login_field">
+									<Form.Input
+										fluid
+										icon="user"
+										iconPosition="left"
+										placeholder="Correo Electronico"
+										name="email"
+										onChange={(event): void => this.emailChangedLogin(event.target.value)}
+										type="text"
+									/>
+								</Grid.Column>
+								<Grid.Column className="login_field">
+									<Form.Input fluid icon="lock" type="password" iconPosition="left" placeholder="Contraseña" />
+								</Grid.Column>
+								<Grid.Column className="login_field" verticalAlign="middle" textAlign="center">
+									<label className="label_password"> ¿Olvidastes tu contraseña ? </label>
+								</Grid.Column>
+								<Grid.Column className="login_field">
+									<Button className="button_login" color="red" fluid size="large">
+										INCIAR SESION
+									</Button>
+								</Grid.Column>
+								<Grid.Column className="login_field">
+									<label className="label_password"> ¿No tienes cuenta anunciate gratis? </label>
+								</Grid.Column>
+								<Grid.Column className="login_field">
+									<Button className="button_login" color="black" fluid size="large">
+										ANUNCIARME GRATIS
+									</Button>
+								</Grid.Column>
+							</Grid.Row>
+						</Form>
 					</Grid.Column>
-				</Grid>
-				<form onSubmit={this.onSubmit}>
-					<h1>Login</h1>
-					<input
-						name="username"
-						placeholder="username"
-						onChange={(event): void => this.emailChangedLogin(event.target.value)}
-						type="text"
-					/>
-					<input
-						name="password"
-						placeholder="password"
-						onChange={(event): void => this.setState({ password: event.target.value })}
-						type="password"
-					/>
-					<button>Login</button>
-				</form>
-			</div>
+				</Container>
+			</Grid>
 		);
 	}
 }

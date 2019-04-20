@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import { VALID_EMAIL, IS_STRING } from '../utils/regex.util';
 
-function required(status: boolean, payload: string): any {
+function required(status: boolean, payload: string): string|null {
 	if (status) {
 		if (isEmpty(payload)) {
 			return 'Este campo es requerido*';
@@ -10,7 +10,7 @@ function required(status: boolean, payload: string): any {
 	return null;
 }
 
-function isEmail(status: boolean, payload: any) {
+function isEmail(status: boolean, payload: string): string|null {
 	if (status) {
 		if (payload.search(new RegExp(VALID_EMAIL))) {
 			return 'El correo electronico es invalido*';
@@ -20,14 +20,14 @@ function isEmail(status: boolean, payload: any) {
 }
 
 
-function minLength(length: number, payload: string): any {
+function minLength(length: number, payload: string): string|null {
 	if (payload.length < length) {
 		return `Minimo ${length} caracteres*`;
 	}
 	return null;
 }
 
-function isString(status: boolean, payload: string): any {
+function isString(status: boolean, payload: string): string|null {
 	if (status) {
 		if (payload.search(IS_STRING)) {
 			return 'Solo se aceptan letras*';
@@ -36,7 +36,7 @@ function isString(status: boolean, payload: string): any {
 	return null;
 }
 
-function confirmPassword(status: boolean, payload: any) {
+function confirmPassword(status: boolean, payload: string): string|null {
 	if (status) {
 		const data = payload.split('~');
 		if (data[0] !== data[1]) {
@@ -47,11 +47,11 @@ function confirmPassword(status: boolean, payload: any) {
 }
 
 
-export const validate = (payload: any, validations: Object): any => {
+export const validate = (payload: string, validations: Object): string|null => {
 	try {
 		const options: string[] = Object.getOwnPropertyNames(validations);
 
-		let error: any;
+		let error: string|null;
 		options.map((option): void => {
 			switch (option) {
 				case 'required': error = required(validations[option], payload); break;
