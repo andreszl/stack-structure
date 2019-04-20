@@ -70,5 +70,4 @@ export const validate = (payload: string, validations: Object): string|null => {
 	} catch (err) {
 		return err;
 	}
-
 };
