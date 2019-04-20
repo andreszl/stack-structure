@@ -1,7 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRootPlugin = require('html-webpack-root-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = {
@@ -18,7 +17,6 @@ module.exports = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx'],
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
 		new ExtractTextPlugin({
 			filename: 'app.css',
 		}),

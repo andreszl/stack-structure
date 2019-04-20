@@ -5,6 +5,7 @@ import actions from '../actions';
 
 interface Props {
 	login: Function;
+	emailChangedLogin: Function;
 }
 
 interface State {
@@ -63,6 +64,7 @@ class Login extends Component<Props, State> {
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
+		this.emailChangedLogin = this.emailChangedLogin.bind(this);
 
 	}
 
@@ -71,6 +73,11 @@ class Login extends Component<Props, State> {
 		const { username, password } = this.state;
 		const { login } = this.props;
 		await login({ username, password });
+	}
+
+	emailChangedLogin(email: string): void {
+		const { emailChangedLogin } = this.props;
+		emailChangedLogin(email);
 	}
 
 	render(): JSX.Element {
@@ -93,7 +100,7 @@ class Login extends Component<Props, State> {
 					<input
 						name="username"
 						placeholder="username"
-						onChange={(event): void => this.setState({ username: event.target.value })}
+						onChange={(event): void => this.emailChangedLogin(event.target.value)}
 						type="text"
 					/>
 					<input
@@ -109,7 +116,7 @@ class Login extends Component<Props, State> {
 	}
 }
 
-const { login } = actions.authActions;
+const { login, emailChangedLogin } = actions.authActions;
 
 
-export default connect(null, { login })(Login);
+export default connect(null, { login, emailChangedLogin })(Login);

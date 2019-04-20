@@ -45,6 +45,8 @@ module.exports = {
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
     "no-unused-vars": [2, {"vars": "all", "args": "after-used", "argsIgnorePattern": "^_|^next$"}],
     "react/jsx-one-expression-per-line": "off",
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "no-eval": "off",
+    "no-useless-escape": "off"
   }
 };
