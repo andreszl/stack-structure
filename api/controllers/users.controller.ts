@@ -7,6 +7,14 @@ import UserModel from '../models/user.model';
 
 class UsersController {
 
+	public async getAllUsers(req: Request, res: Response) {
+		try {
+			const users = await UserModel.getAll();
+			res.json(users);
+		} catch (err) {
+			throw err;
+		}
+	}
 	public async index(req: Request, res: Response): Promise<void> {
 		try {
 			const { schema, context } = modules;
@@ -50,7 +58,7 @@ class UsersController {
 
 			const result = await UserModel.findUserByName(user.name);
 
-			if (result.length >= 1) {
+			if (result) {
 				res.json(result);
 			} else {
 				const info = await UserModel.save(user);

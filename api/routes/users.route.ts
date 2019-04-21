@@ -11,9 +11,10 @@ class UsersRoutes {
 	}
 
 	config(): void{
-		this.router.post('/', this.usersController.save);
+		this.router.get('/getAllUsers', this.usersController.getAllUsers);
 		this.router.get('/', this.usersController.index);
 		this.router.get('/:id', this.usersController.findById);
+		this.router.post('/', this.usersController.save);
 		this.router.post('/login', this.usersController.login);
 		this.router.post('/verify', this.usersController.verify);
 	}
