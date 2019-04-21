@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Form, Container, Button } from 'semantic-ui-react';
+import { Grid, Form, Container, Button, Label } from 'semantic-ui-react';
+import isEmpty from 'lodash/isEmpty';
 import actions from '../actions';
 import '../stylesheet/login/login.less';
 
 interface Props {
 	login: Function;
 	emailChangedLogin: Function;
+	loginForm: { email: { payload: string, error: string} }
 }
 
 interface State {
@@ -39,6 +41,8 @@ class Login extends Component<Props, State> {
 	}
 
 	render(): JSX.Element {
+		const { loginForm } = this.props;
+		const error = isEmpty(loginForm.email.error);
 		return (
 			<Grid centered>
 				<Grid.Column width={16} className="menu">
@@ -57,7 +61,9 @@ class Login extends Component<Props, State> {
 										name="email"
 										onChange={(event): void => this.emailChangedLogin(event.target.value)}
 										type="text"
+										error={!error}
 									/>
+									{ !isEmpty(loginForm.email.error) ? <Label basic color="red" pointing> { loginForm.email.error } </Label> : null }
 								</Grid.Column>
 								<Grid.Column className="login_field">
 									<Form.Input fluid icon="lock" type="password" iconPosition="left" placeholder="Contraseña" />
@@ -71,7 +77,7 @@ class Login extends Component<Props, State> {
 									</Button>
 								</Grid.Column>
 								<Grid.Column className="login_field">
-									<label className="label_password"> ¿No tienes cuenta anunciate gratis? </label>
+									<label className="label_password"> ¿No tienes cuenta? anunciate gratis! </label>
 								</Grid.Column>
 								<Grid.Column className="login_field">
 									<Button className="button_login" color="black" fluid size="large">
@@ -87,7 +93,14 @@ class Login extends Component<Props, State> {
 	}
 }
 
-const { login, emailChangedLogin } = actions.authActions;
+const { emailChangedLogin } = actions.loginFormActions;
+const { login } = actions.authActions;
+
+function mapStateToProps(state: { loginForm: object }): object {
+	return {
+		loginForm: state.loginForm,
+	};
+}
 
 
-export default connect(null, { login, emailChangedLogin })(Login);
+export default connect(mapStateToProps, { login, emailChangedLogin })(Login);
