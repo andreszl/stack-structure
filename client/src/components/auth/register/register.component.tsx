@@ -20,7 +20,7 @@ class Register extends Component<Props, State> {
 		super(props);
 		this.state = {
 			btnNextStatus: true,
-			step: 2,
+			step: 1,
 			steps: [
 				{
 					key: 'account',

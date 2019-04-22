@@ -45,9 +45,6 @@ class Login extends Component<Props, State> {
 		const error = isEmpty(loginForm.email.error);
 		return (
 			<Grid centered>
-				<Grid.Column width={16} className="menu">
-					<h1>Sexus.co</h1>
-				</Grid.Column>
 				<Container>
 					<Grid.Column width={16} className="login_box">
 						<Form size="large" className="login_form">
@@ -77,11 +74,11 @@ class Login extends Component<Props, State> {
 									</Button>
 								</Grid.Column>
 								<Grid.Column className="login_field">
-									<label className="label_password"> ¿No tienes cuenta? anunciate gratis! </label>
+									<label className="label_password"> ¿No tienes cuenta? registrate gratis! </label>
 								</Grid.Column>
 								<Grid.Column className="login_field">
 									<Button className="button_login" color="black" fluid size="large">
-										ANUNCIARME GRATIS
+										REGISTRARSE
 									</Button>
 								</Grid.Column>
 							</Grid.Row>
