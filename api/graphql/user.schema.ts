@@ -28,15 +28,15 @@ export const UserModule = new GraphQLModule({
 	resolvers: {
 		Query: {
 			hello: (_, { name }): string => `hello ${name || 'world'}`,
-			users: async (): Promise<Nedb.Cursor<{}>> => {
+			users: async (): Promise<any> => {
 				const users = await UserModel.find();
 				return users;
 			},
-			findUserById: async (_, { id }): Promise<Nedb.Cursor<{}>> => {
+			findUserById: async (_, { id }): Promise<any> => {
 				const user = await UserModel.findById(id);
 				return user;
 			},
-			findUsersByName: async (_, { name }): Promise<Nedb.Cursor<{}>> => {
+			findUsersByName: async (_, { name }): Promise<any> => {
 				const user = await UserModel.findUsersByName(name);
 				return user;
 			},

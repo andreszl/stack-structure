@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Form, Container, Button, Label } from 'semantic-ui-react';
 import isEmpty from 'lodash/isEmpty';
-import actions from '../actions';
-import '../stylesheet/login/login.less';
+import actions from '../../actions';
+import '../../stylesheet/login/login.less';
 
 interface Props {
 	login: Function;

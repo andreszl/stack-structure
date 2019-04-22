@@ -12,57 +12,94 @@ class UserModel {
 		}
 	}
 
-	public static async index(): Promise<Nedb.Cursor<{}>> {
+	public static index(): Promise<Function> {
 		try {
-			const users = await nedb.find({});
-			return users;
+			return new Promise((resolve: Function): void => {
+				nedb.find({}, (err: Error, users: Record<string, object[]>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(users);
+				});
+			});
 		} catch (err) {
 			throw err;
 		}
 	}
 
-	public static async findUserByName(name: string): Promise<Nedb.Cursor<{}>> {
+	public static findUserByName(name: string): Promise<Function> {
 		try {
-			const users = await	nedb.find({ name });
-			return users;
+			return new Promise((resolve: Function): void => {
+				nedb.find({ name }, (err: Error, user: Record<string, object[]>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(user);
+				});
+			});
 		} catch (err) {
 			throw err;
 		}
 	}
 
-	public static async findUsersByName(name: string): Promise<Nedb.Cursor<{}>> {
+	public static findUsersByName(name: string): Promise<Function> {
 		try {
 			const regexString: string = `${name}`;
 			const regex: RegExp = new RegExp(regexString);
-			const users = await nedb.find({ name: { $regex: regex } });
-			return users;
+			return new Promise((resolve: Function): void => {
+				nedb.find(
+					{ name: { $regex: regex } },
+					(err: Error, user: Record<string, object[]>): void => {
+						if (err) {
+							throw err;
+						}
+						resolve(user);
+					},
+				);
+			});
 		} catch (err) {
 			throw err;
 		}
 	}
 
 
-	public static save(user: object): void {
+	public static save(user: object): Promise<Function> {
+		return new Promise((resolve: Function): void => {
+			try {
+				nedb.insert(user, (err, info): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(info);
+				});
+			} catch (err) {
+				throw err;
+			}
+		});
+	}
+
+	public static find(): Promise<Function> {
 		try {
-			nedb.insert(user);
+			return new Promise((resolve: Function): void => {
+				nedb.find({}, (err: Error, users: Record<string, object[]>): void => {
+					if (err) {
+						throw err;
+					}
+					resolve(users);
+				});
+			});
 		} catch (err) {
 			throw err;
 		}
 	}
 
-	public static async find(): Promise<Nedb.Cursor<{}>> {
+	public static findById(id: string): Promise<Function> {
 		try {
-			const users = nedb.find({});
-			return users;
-		} catch (err) {
-			throw err;
-		}
-	}
-
-	public static async findById(id: string): Promise<Nedb.Cursor<{}>> {
-		try {
-			const user = await nedb.find({ _id: id });
-			return user;
+			return new Promise((resolve: Function): void => {
+				nedb.find({ _id: id }, (err: Error, user: Record<string, object[]>): void => {
+					resolve(user);
+				});
+			});
 		} catch (err) {
 			throw err;
 		}

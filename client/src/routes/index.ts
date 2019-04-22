@@ -1,22 +1,19 @@
 import { userRoutes } from './users.routes';
 import { authRoutes } from './auth.routes';
-import NotFound from '../components/notFound.component';
+import { matchRoutes } from './match.routes';
 import Home from '../components/home.component';
 
-const routes = [
-	userRoutes,
+const homeRoute: any = 	{
+	path: '/',
+	exact: true,
+	component: Home,
+};
+
+const routes: any = [].concat(
 	authRoutes,
-	{
-		path: '/home',
-		exact: true,
-		component: Home,
-	},
-	{
-		path: '*',
-		exact: true,
-		component: NotFound,
-		status: 404,
-	},
-];
+	userRoutes,
+	homeRoute,
+	matchRoutes,
+);
 
 export default routes;
