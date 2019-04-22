@@ -11,7 +11,7 @@ class Database {
 	constructor() {
 		this.host = 'localhost';
 		this.port = 27017;
-		this.dbname = 'sexus';
+		this.dbname = 'test';
 	}
 
 	public async getInstance() {
