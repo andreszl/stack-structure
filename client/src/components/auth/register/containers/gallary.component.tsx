@@ -16,9 +16,18 @@ class Gallery extends Component<Props, State> {
 		};
 	}
 
+	galleryForm(form: { input: string } | any = {}) {
+		// const { generalForm } = this.props;
+		// generalForm(form);
+		console.log(form);
+	}
+
 	render() {
 		return (
-			<div>Gallery page</div>
+			<div>
+				<h4>Gallery page</h4>
+				<input type="text" onChange={event => this.galleryForm({ input: event.target.value })} />
+			</div>
 		);
 	}
 }

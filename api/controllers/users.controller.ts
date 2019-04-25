@@ -15,6 +15,7 @@ class UsersController {
 			throw err;
 		}
 	}
+
 	public async index(req: Request, res: Response): Promise<void> {
 		try {
 			const { schema, context } = modules;

@@ -1,5 +1,6 @@
-export const validateName = (
-	options: { required: boolean, minLength: number, maxLength: number, isString: boolean } | any,
+export const nameOptions = (
+	options: {
+		required: boolean, minLength: number, maxLength: number, isString: boolean } | any = {},
 ) => {
 	return {
 		required: options.required || true,
@@ -9,15 +10,15 @@ export const validateName = (
 	};
 };
 
-export const validateEmail = (options :{ required: boolean, isEmail: boolean } | any) => {
+export const emailOptions = (options :{ required: boolean, isEmail: boolean } | any = {}) => {
 	return {
 		required: options.required || true,
 		isEmail: options.isEmail || true,
 	};
 };
 
-export const validatePassword = (
-	options: { required: boolean, minLength: number, confirmPassword: boolean, } | any,
+export const passwordOptions = (
+	options: { required: boolean, minLength: number, confirmPassword: boolean, } | any = {},
 ) => {
 	return {
 		required: options.required || true,

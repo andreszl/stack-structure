@@ -9,6 +9,3 @@ export const userFactory = Factory.Sync.makeFactory<User>({
 	email: faker.internet.email(),
 	role: faker.lorem.word(),
 });
-
-const user = userFactory.build();
-console.log(user);
